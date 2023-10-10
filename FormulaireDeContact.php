@@ -25,7 +25,7 @@
 
         <?php if (isset($_SESSION['errors'])): ?>
         // Affichage d'une alerte d'erreur si la session contient une variable 'errors'
-            swal("<?= implode('</n>', $_SESSION['errors']); ?>", "", "error");
+            swal("<?= implode(',', $_SESSION['errors']); ?>", "", "error");
         <?php endif; ?>
 
     </script>
@@ -94,6 +94,9 @@
             </div>
 
         </div>
+
+        <!-- Inclusion de la bibliothèque JavaScript sweetAlert pour afficher des messages d'alerte -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
 
         <!-- Inclusion d'un fichier 'alert.inc.php' pour gérer les alertes -->
         <?php include 'includes/alert.inc.php'; ?>
