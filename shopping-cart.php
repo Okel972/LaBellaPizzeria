@@ -107,6 +107,14 @@
                     else if($select_cart->rowCount() > 0){
                         while($fetch_cart = $select_cart->fetch(PDO::FETCH_ASSOC)){
 
+                            // Récupération des informations du produit à partir de la base de données
+                            $select_products = $conn->prepare("SELECT * FROM `products` WHERE id = ?");
+
+                            $select_products->execute([$fetch_cart['product_id']]);
+
+                            if($select_products->rowCount() > 0){
+                                $fetch_product = $select_products->fetch(PDO::FETCH_ASSOC);
+
                             ?>
 
                             <!-- Formulaire pour gérer les produits du panier -->
@@ -144,15 +152,8 @@
             
                             <?php
 
-                            // Récupération des informations du produit à partir de la base de données
-                            $select_products = $conn->prepare("SELECT * FROM `products` WHERE id = ?");
-
-                            $select_products->execute([$fetch_cart['product_id']]);
-
-                            if($select_products->rowCount() > 0){
-                                $fetch_product = $select_products->fetch(PDO::FETCH_ASSOC);
-                                // Calcul du coût total en ajoutant le sous-total de chaque produit
-                                $grand_total += $sub_total;
+                            // Calcul du coût total en ajoutant le sous-total de chaque produit
+                            $grand_total += $sub_total;
                             }
                             else{
                                 echo '<p class="empty">product was not found!</p>';

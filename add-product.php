@@ -1,5 +1,29 @@
 <?php
+
     session_start(); // Démarre ou reprend une session existante.
+
+    // Inclure la configuration de la base de données ici
+    include 'includes/dbh.inc.php';
+
+    // Vérifier si un produit a été soumis pour édition ou suppression
+    if(isset($_POST['edit_product_id'])) {
+    $edit_product_id = $_POST['edit_product_id'];
+    // Rediriger vers la page d'édition avec l'ID du produit
+    header("Location: update.php?id=" . $edit_product_id);
+    exit();
+    }
+
+    if(isset($_POST['delete_product_id'])) {
+    $delete_product_id = $_POST['delete_product_id'];
+    // Rediriger vers la page de suppression avec l'ID du produit
+    header("Location: delete.php?id=" . $delete_product_id);
+    exit();
+    }
+
+    // Lire les données de la base de données
+    $query = "SELECT * FROM products";
+    $result = mysqli_query($conn, $query);
+
 ?>
 
 <!DOCTYPE html>
@@ -58,9 +82,81 @@
 
         </section>
 
+        <h1>Editer/Supprimer</h1>
 
+        <div class="table-container">
 
+            <form method="post">
+            <!-- Formulaire pour la gestion des produits -->
 
+                <table class="table">
+                <!-- Tableau avec la classe "table" pour appliquer des styles spécifiques -->
+
+                    <tr class="table-header">
+                    <!-- Ligne d'en-tête du tableau -->
+
+                        <th>ID</th>
+                        <!-- Cellule d'en-tête "ID" -->
+                        <th>Nom</th>
+                        <!-- Cellule d'en-tête "Nom" -->
+                        <th>Prix</th>
+                        <!-- Cellule d'en-tête "Prix" -->
+                        <th>Image</th>
+                        <!-- Cellule d'en-tête "Image" -->
+                        <th>Catégorie</th>
+                        <!-- Cellule d'en-tête "Catégorie" -->
+                        <th>Modifier</th>
+                        <!-- Cellule d'en-tête "Modifier" -->
+                        <th>Supprimer</th>
+                        <!-- Cellule d'en-tête "Supprimer" -->
+
+                    </tr>
+                    <!-- Fin de la ligne d'en-tête -->
+
+                    <?php while ($row = mysqli_fetch_array($result)) { ?>
+                    <!-- Début d'une boucle pour afficher les données de la base de données -->
+
+                    <tr>
+                    <!-- Ouvre une nouvelle ligne de tableau -->
+
+                        <td class='table-cell'><?= $row['id'] ?></td>
+                        <!-- Cellule avec l'ID -->
+                        <td class='table-cell'><?= $row['name'] ?></td>
+                        <!-- Cellule avec le nom -->
+                        <td class='table-cell'><?= $row['price'] ?></td>
+                        <!-- Cellule avec le prix -->
+                        <td class='table-cell'><img src='uploaded_files/<?= $row['image'] ?>' width='50' height='50' alt=''></td>
+                        <!-- Cellule avec l'image (un lien vers le dossier "uploaded_files") -->
+                        <td class='table-cell'><?= $row['category'] ?></td>
+                        <!-- Cellule avec la catégorie -->
+
+                        <td class='table-cell'>
+
+                            <button type="submit" name="edit_product_id" class='edit-btn' value="<?= $row['id'] ?>">Modifier</button>
+                            <!-- Cellule avec un lien pour la mise à jour -->
+
+                        </td>
+
+                        <td class='table-cell'>
+
+                            <button type="submit" name="delete_product_id" class='delete-btn' value="<?= $row['id'] ?>">Supprimer</button>
+                            <!-- Cellule avec un lien pour la suppression -->
+
+                        </td>
+
+                    </tr>
+                    <!-- Fin de la ligne de données -->
+
+                    <?php } ?>
+                    <!-- Fin de la boucle PHP -->
+
+                </table>
+
+            </form>
+            <!-- Fin du tableau -->
+
+        </div>
+        <!-- Fin de la div "table-container" -->
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <!-- Inclusion d'une bibliothèque JavaScript pour afficher des messages d'alerte personnalisés (sweetAlert). -->

@@ -36,41 +36,44 @@
 
             <!-- Liens pour filtrer par catégorie de produits -->
             <a 
-            href="?category=pizza" class="text-icon">
+            href="javascript:void(0);" onclick="loadCategory('pizza')" class="text-icon">
             <img src="img/pizza.svg" alt="" class="icon-text">Pizza</a>
 
             <a 
-            href="?category=burger" class="text-icon">
+            href="javascript:void(0);" onclick="loadCategory('burger')" class="text-icon">
             <img src="img/burger.svg" alt="" class="icon-text">Burgers</a>
 
             <a 
-            href="?category=tacos" class="text-icon">
+            href="javascript:void(0);" onclick="loadCategory('tacos')" class="text-icon">
             <img src="img/tacos.svg" alt="" class="icon-text">Tacos</a>
 
             <a 
-            href="?category=wrap" class="text-icon">
+            href="javascript:void(0);" onclick="loadCategory('wrap')" class="text-icon">
             <img src="img/wrap.svg" alt="" class="icon-text">Wraps</a>
 
             <a 
-            href="?category=fries" class="text-icon">
+            href="javascript:void(0);" onclick="loadCategory('fries')" class="text-icon">
             <img src="img/fries.svg" alt="" class="icon-text">Fries</a>
 
             <a 
-            href="?category=salad" class="text-icon">
+            href="javascript:void(0);" onclick="loadCategory('salad')" class="text-icon">
             <img src="img/salads.svg" alt="" class="icon-text">Salads</a>
 
             <a 
-            href="?category=drink" class="text-icon">
+            href="javascript:void(0);" onclick="loadCategory('drink')" class="text-icon">
             <img src="img/drinks.svg" alt="" class="icon-text">Drinks</a>
 
         </div>
 
         <div class="produit">
             <!-- Inclusion d'un iframe pour afficher le contenu du menu (Menu.php) -->
-            <iframe src="Menu.php" class="carte"></iframe>
+            <!-- <iframe src="Menu.php" class="carte"></iframe> -->
+            <iframe id="menu-iframe" src="Menu.php" class="carte"></iframe>
         </div>
 
         <?php include('footer.php'); ?>
+
+        <script src="script/script-menu.js"></script>
 
     </body>
 

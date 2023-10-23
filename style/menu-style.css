@@ -125,6 +125,7 @@ table {
     font-weight: bold;
     font-family: 'Inter', sans-serif;
     color: #C00A27;
+    text-transform: capitalize;
 }
 
 .topbar-container {

@@ -1,7 +1,3 @@
-<?php
-    session_start(); // Démarre ou reprend une session existante.
-?>
-
 <!DOCTYPE html>
 
 <html lang="fr">
@@ -20,18 +16,21 @@
 
         <?php if (isset($_SESSION['success'])): ?>
         // Affichage d'une alerte de succès si la session contient une variable 'success'
-            swal("<?= $_SESSION['success']; ?>", "", "success");
+            swal.fire("<?= $_SESSION['success']; ?>", "", "success");
         <?php endif; ?>
 
         <?php if (isset($_SESSION['errors'])): ?>
         // Affichage d'une alerte d'erreur si la session contient une variable 'errors'
-            swal("<?= implode(',', $_SESSION['errors']); ?>", "", "error");
+            swal("<?= implode('\r\n', $_SESSION['errors']); ?>", "", "error");
         <?php endif; ?>
+
+        <?php unset($_SESSION['errors']); ?>
 
     </script>
 
     <body>
 
+        <!-- Une formule qui marche bien -->
         <!-- 
         <?php if(isset($_SESSION['errors'])): ?>
             <div>
@@ -96,7 +95,7 @@
         </div>
 
         <!-- Inclusion de la bibliothèque JavaScript sweetAlert pour afficher des messages d'alerte -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.7.32/sweetalert2.min.js"></script>
 
         <!-- Inclusion d'un fichier 'alert.inc.php' pour gérer les alertes -->
         <?php include 'includes/alert.inc.php'; ?>

@@ -58,6 +58,34 @@
 
 ?>
 
+<?php
+
+    include_once 'includes/dbh.inc.php';
+
+    // Si la catégorie est définie dans les paramètres GET
+    if (isset($_GET['category'])) {
+        $category = $_GET['category'];
+
+        // Utilisez la catégorie dans la requête SQL
+        $sql = "SELECT * FROM products WHERE category = '$category'";
+    } else {
+        // Si aucune catégorie n'est spécifiée, récupère tous les produits
+        $sql = "SELECT * FROM products";
+    }
+
+    // Exécutez la requête SQL et affichez les produits
+    $resultat = mysqli_query($conn, $sql);
+
+    // Parcourez les résultats pour afficher les produits
+    while ($row = mysqli_fetch_assoc($resultat)) {
+        echo '<div>' . $row['name'] . '</div>';
+        // Ajoutez d'autres informations sur les produits
+    }
+
+    // Fermez la connexion à la base de données
+    mysqli_close($conn);
+?>
+
 
 <!DOCTYPE html>
 
@@ -74,35 +102,9 @@
 
     <body>
 
-        <?php
-
-            session_start();
-        
-            include_once 'includes/dbh.inc.php';
-
-            // Si la catégorie est définie dans les paramètres GET
-            if (isset($_GET['category'])) {
-                $category = $_GET['category'];
-                $_SESSION['category'] = $category;
-        
-                // Utilisez la catégorie dans la requête SQL
-                $sql = "SELECT * FROM products WHERE category = '$category'";
-            } else {
-                // Réinitialisez la variable de session 'category' à "Nos articles"
-                $_SESSION['category'] = 'Nos articles';
-
-                // Si aucune catégorie n'est spécifiée, récupère tous les produits
-                $sql = "SELECT * FROM products";
-            }
-        
-            // Exécutez la requête SQL et affichez les produits
-            $result = mysqli_query($conn, $sql);
-        
-        ?>
-
         <header>
             <!-- Affichage du titre de la catégorie dans l'en-tête de la page -->
-            <div class="title"><?php echo (isset($_SESSION['category'])) ? $_SESSION['category'] : 'Nos articles'; ?></div>
+            <div class="title"><?= $categoryTitle ?></div>
         </header>
 
 
@@ -127,10 +129,9 @@
 
             
             <?php                
-                // Vérifiez s'il y a des résultats
-            if ($result) {
-                    // Il y a des produits à afficher
-                while ($fetch_product = mysqli_fetch_assoc($result)) {
+                // Vérification si des produits sont disponibles
+                if($select_products->rowCount() > 0){
+                    while($fetch_product = $select_products->fetch(PDO::FETCH_ASSOC)){
             ?>
             
             <!-- Formulaire pour ajouter un produit au panier -->
@@ -168,13 +169,10 @@
 
 
             <?php
-                }
-            } else {
+                    }
+                }else {
                     echo '<p class="empty">no products found!</p>';
                 }
-
-                // Fermez la connexion à la base de données
-                mysqli_close($conn);
             ?>
 
         </section>
