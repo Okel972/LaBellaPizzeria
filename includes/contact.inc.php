@@ -7,19 +7,19 @@ $emails = ['contact@infozone.dev', 'commandes@infozone.dev', 'information@infozo
 
 // Vérification des données du formulaire
 if(!isset($_POST["nameContact"]) || $_POST["nameContact"] == "") {
-    $warning_msg["nameContact"] = "Invalid name";
+    $warning_msg["nameContact"] = "Invalid-name ";
 }
 
 if(!isset($_POST["emailContact"]) || $_POST["emailContact"] == "" || !filter_var($_POST['emailContact'], FILTER_VALIDATE_EMAIL)) {
-    $warning_msg["emailContact"] = "Invalid email";
+    $warning_msg["emailContact"] = " Invalid-email ";
 }
 
 if(!isset($_POST["messageContact"]) || $_POST["messageContact"] == "") {
-    $warning_msg["messageContact"] = "Invalid message";
+    $warning_msg["messageContact"] = " Invalid-message ";
 }
 
 if(!isset($_POST["service"]) || !isset($emails[$_POST["service"]])) {
-    $warning_msg["service"] = "Invalid service";
+    $warning_msg["service"] = " Invalid-service";
 }
 
 // Démarrage d'une session PHP

@@ -14,17 +14,40 @@
 
     <script>
 
-        <?php if (isset($_SESSION['success'])): ?>
-        // Affichage d'une alerte de succès si la session contient une variable 'success'
-            swal.fire("<?= $_SESSION['success']; ?>", "", "success");
+        <?php if (isset($_SESSION['errors'])): ?>
+
+        <?php
+            // Récupérez les erreurs depuis la session
+            $errors = $_SESSION['errors'];
+
+            // Créez une chaîne de texte formatée pour les erreurs
+            $errorText = implode($errors); // Vous pouvez utiliser un séparateur de votre choix
+
+            // Utilisez cette chaîne dans votre boîte de dialogue Swal
+            echo "swal(
+                '$errorText',
+                'Please make sure to fill out everything correctly.',
+                'error'
+            );";
+        ?>
+
         <?php endif; ?>
 
-        <?php if (isset($_SESSION['errors'])): ?>
-        // Affichage d'une alerte d'erreur si la session contient une variable 'errors'
-            swal("<?= implode('\r\n', $_SESSION['errors']); ?>", "", "error");
+        <?php if (isset($_SESSION['success'])): ?>
+
+        <?php
+            // Utilisez cette chaîne dans votre boîte de dialogue Swal
+            echo "swal(
+                'Votre email a bien été envoyé',
+                'Super !',
+                'success'
+            );";
+        ?>
+
         <?php endif; ?>
 
         <?php unset($_SESSION['errors']); ?>
+        <?php unset($_SESSION['success']); ?>
 
     </script>
 
@@ -96,9 +119,6 @@
 
         <!-- Inclusion de la bibliothèque JavaScript sweetAlert pour afficher des messages d'alerte -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert2/11.7.32/sweetalert2.min.js"></script>
-
-        <!-- Inclusion d'un fichier 'alert.inc.php' pour gérer les alertes -->
-        <?php include 'includes/alert.inc.php'; ?>
         
     </body>
     

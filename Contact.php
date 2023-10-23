@@ -28,4 +28,6 @@
 
     </body>
 
+    <?php unset($_SESSION['inputs']); ?>
+
 </html>
