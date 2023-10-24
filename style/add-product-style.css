@@ -219,6 +219,7 @@ h1 {
 
 .edit-btn {
     background-color: var(--orange);
+    cursor: pointer;
 }
 
 .delete-btn {
