@@ -119,6 +119,20 @@ h1 {
     text-align: center;
 }
 
+.empty{
+    width: 100%;
+    background-color: var(--white);
+    padding: 1.5rem;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 2rem;
+    color: var(--red);
+    border-radius: .5rem;
+    text-transform: capitalize;
+    box-shadow: var(--box-shodow);
+    border: var(--border);
+}
+
 .btn,
 .delete-btn{
     display: block;

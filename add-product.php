@@ -113,42 +113,53 @@
                     </tr>
                     <!-- Fin de la ligne d'en-tête -->
 
-                    <?php while ($row = mysqli_fetch_array($result)) { ?>
-                    <!-- Début d'une boucle pour afficher les données de la base de données -->
+                    <?php
 
-                    <tr>
-                    <!-- Ouvre une nouvelle ligne de tableau -->
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_array($result)) { 
+                                // Début d'une boucle pour afficher les données de la base de données
+                                ?>
 
-                        <td class='table-cell'><?= $row['id'] ?></td>
-                        <!-- Cellule avec l'ID -->
-                        <td class='table-cell'><?= $row['name'] ?></td>
-                        <!-- Cellule avec le nom -->
-                        <td class='table-cell'><?= $row['price'] ?></td>
-                        <!-- Cellule avec le prix -->
-                        <td class='table-cell'><img src='uploaded_files/<?= $row['image'] ?>' width='50' height='50' alt=''></td>
-                        <!-- Cellule avec l'image (un lien vers le dossier "uploaded_files") -->
-                        <td class='table-cell'><?= $row['category'] ?></td>
-                        <!-- Cellule avec la catégorie -->
+                                <tr>
+                                <!-- Ouvre une nouvelle ligne de tableau -->
 
-                        <td class='table-cell'>
+                                    <td class='table-cell'><?= $row['id'] ?></td>
+                                    <!-- Cellule avec l'ID -->
+                                    <td class='table-cell'><?= $row['name'] ?></td>
+                                    <!-- Cellule avec le nom -->
+                                    <td class='table-cell'><?= $row['price'] ?></td>
+                                    <!-- Cellule avec le prix -->
+                                    <td class='table-cell'><img src='uploaded_files/<?= $row['image'] ?>' width='50' height='50' alt=''></td>
+                                    <!-- Cellule avec l'image (un lien vers le dossier "uploaded_files") -->
+                                    <td class='table-cell'><?= $row['category'] ?></td>
+                                    <!-- Cellule avec la catégorie -->
 
-                            <button type="submit" name="edit_product_id" class='edit-btn' value="<?= $row['id'] ?>">Modifier</button>
-                            <!-- Cellule avec un lien pour la mise à jour -->
+                                    <td class='table-cell'>
 
-                        </td>
+                                        <button type="submit" name="edit_product_id" class='edit-btn' value="<?= $row['id'] ?>">Modifier</button>
+                                        <!-- Cellule avec un lien pour la mise à jour -->
 
-                        <td class='table-cell'>
+                                    </td>
 
-                            <button type="submit" name="delete_product_id" class='delete-btn' value="<?= $row['id'] ?>">Supprimer</button>
-                            <!-- Cellule avec un lien pour la suppression -->
+                                    <td class='table-cell'>
 
-                        </td>
+                                        <button type="submit" name="delete_product_id" class='delete-btn' value="<?= $row['id'] ?>">Supprimer</button>
+                                        <!-- Cellule avec un lien pour la suppression -->
 
-                    </tr>
-                    <!-- Fin de la ligne de données -->
+                                    </td>
 
-                    <?php } ?>
-                    <!-- Fin de la boucle PHP -->
+                                </tr>
+                                <!-- Fin de la ligne de données -->
+
+                                <?php 
+                                // Fin de la boucle pour afficher les données de la base de données
+                            }
+                        } else {
+                            // Si aucun produit n'a été trouvé, affichez un message d'erreur
+                            echo '<p class="empty">Aucun produit trouvé !</p>';
+                        }
+                        
+                    ?>
 
                 </table>
 
@@ -161,7 +172,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <!-- Inclusion d'une bibliothèque JavaScript pour afficher des messages d'alerte personnalisés (sweetAlert). -->
 
-        <!-- <script src="js/script.js"></script> -->
+        <script type="text/javascript" src="script/script-btnDelete.js"></script>
 
         <?php include 'includes/alert.inc.php'; ?>
         <!-- Inclusion d'un fichier 'alert.inc.php' qui gère les alertes dans la page. -->
